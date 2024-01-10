@@ -16,6 +16,6 @@ locals {
                     }
                   ]...)
   api_keys_to_add = local.env_type == "non-prod" ? merge(local.dev_api_keys_to_add,local.main_api_keys_to_add) : local.main_api_keys_to_add
-  layer = startswith(terraform.workspace, "shared") ? "SHARED" : startswith(terraform.workspace, "data") ? "DATA" : "APP"
+  layer = startswith(terraform.workspace, "shared-") ? "SHARED" : endswith(terraform.workspace, "-data") ? "DATA" : "APP"
 }
 
